@@ -1,28 +1,52 @@
 #include <stdio.h>
 #include <assert.h>
-#include <string.h>
-#include <cs50.h>
+#include <stdlib.h>
 
-string ari(string);
+void swap_max(int [], int, int );
+void ssort(int [], int);
 
-
-void test1() {
-  string s1="The town was large enough to support three inns, and all their common rooms were rife with rumors. Arianne sent her men into each of them, to hear what they might hear. In the Broken Shield, Daemon Sand was told that the great septry on the Holf of Men had been burned and looted by raiders from the sea, and a hundred young novices from the motherhouse on Maiden Isle carried off into slavery.";
-  assert(strcmp(ari(s1), "Eleventh Grade") == 0);
+void print(int t[], int l) {
+  for (int i = 0; i<l; i++) {
+    printf("%2i ", t[i]);
+    }
+  printf("\n");
 }
 
-void test2() { 
- string s2="A mouse took a stroll through the deep dark wood. A fox saw the mouse, and the mouse looked good. Where are you going to, little brown mouse? Come and have lunch in my underground house.";
-  assert(strcmp(ari(s2), "Third Grade") == 0);
+void compare(int l1[], int l2[], int l) {
+  for (int i=0; i<l; i++) {
+    if (l1[i] != l2[i]) {
+      printf("Error in index %i\n", i);
+      printf("Expected : ");
+      print(l2, l);
+      printf("Actual   : ");
+      print(l1, l);
+      abort();
+    }
+  }
 }
 
-void test3() {
-  string s3="Exhaled respiratory particles can build-up within enclosed spaces with inadequate ventilation. The risk of COVID-19 infection increases especially in spaces where people engage in physical exertion or raise their voice (e.g., exercising, shouting, singing) as this increases exhalation of respiratory droplets. Prolonged exposure to these conditions, typically more than 15 minutes, leads to higher risk of infection.";
-  assert(strcmp(ari(s3), "Professor") == 0);
- }
+void test_swap_max() {
+  int l[] = {10, 4, 6, 2, 7, 3, 15, 8};
+  printf("Checking position 0\n"); swap_max(l, 8, 0); int t0[]={15, 4, 6, 2, 7, 3, 10, 8}; compare(l, t0, 8);
+  printf("Checking position 1\n"); swap_max(l, 8, 1); int t1[]={15, 10, 6, 2, 7, 3, 4, 8}; compare(l, t1, 8);
+  printf("Checking position 2\n"); swap_max(l, 8, 2); int t2[]={15, 10, 8, 2, 7, 3, 4, 6}; compare(l, t2, 8);
+  printf("Checking position 3\n"); swap_max(l, 8, 3); int t3[]={15, 10, 8, 7, 2, 3, 4, 6}; compare(l, t3, 8);
+  printf("Checking position 4\n"); swap_max(l, 8, 4); int t4[]={15, 10, 8, 7, 6, 3, 4, 2}; compare(l, t4, 8);
+  printf("Checking position 5\n"); swap_max(l, 8, 5); int t5[]={15, 10, 8, 7, 6, 4, 3, 2}; compare(l, t5, 8);
+  printf("Checking position 6\n"); swap_max(l, 8, 6); int t6[]={15, 10, 8, 7, 6, 4, 3, 2}; compare(l, t6, 8);
+  printf("Checking position 7\n"); swap_max(l, 8, 7); int t7[]={15, 10, 8, 7, 6, 4, 3, 2}; compare(l, t7, 8);
+};
+
+void test_ssort() {
+  printf("Testing sorting\n");
+  int arr[] = {5, 13, 76, -4, 12, 120, 23, 14, 11, 9, 7};
+  int sorted[] = {120, 76, 23, 14, 13, 12, 11, 9, 7, 5, -4};
+  ssort(arr, 11);
+  compare(arr, sorted, 11);
+
+  }
 
 int main(void) {
-  test1();
-  test2();
-  test3();
-}
+  test_swap_max();
+  test_ssort();
+  }
